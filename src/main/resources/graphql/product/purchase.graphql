@@ -1,0 +1,6 @@
+type Puchase {
+    id: ID
+    product: Product
+    seller: Seller
+
+}

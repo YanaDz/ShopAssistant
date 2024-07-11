@@ -1,0 +1,6 @@
+enum ProductType {
+    HOME_APPLIANCE,
+    KITCHEN_APPLIANCE,
+    SMARTPHONES,
+    COMPUTERS
+}
