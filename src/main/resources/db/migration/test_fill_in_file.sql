@@ -1,4 +1,4 @@
-INSERT INTO product (id, version, created, name, firm, productVersion, productType) VALUES
+INSERT INTO product (id, version, created, name, firm, product_version, product_type) VALUES
                                                                                         (gen_random_uuid(), 1, NOW(), 'QLED TV', 'Samsung', 'Q80T', 'HOME_APPLIANCE'),
                                                                                         (gen_random_uuid(), 1, NOW(), 'OLED TV', 'LG', 'CX Series', 'HOME_APPLIANCE'),
                                                                                         (gen_random_uuid(), 1, NOW(), '4K TV', 'Sony', 'X950H', 'HOME_APPLIANCE'),

@@ -1,4 +1,4 @@
-package pl.dziadkouskaya.graphql.entity;
+package pl.dziadkouskaya.graphql.datasource.entity;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -8,22 +8,15 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public abstract class AuditableEntity<K extends Serializable> {
-
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id")
-    @EqualsAndHashCode.Include
-    private K id;
+public abstract class AuditableEntity {
 
     @Column(name = "version")
     @Version

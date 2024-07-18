@@ -1,4 +1,4 @@
-package pl.dziadkouskaya.graphql.entity;
+package pl.dziadkouskaya.graphql.datasource.entity;
 
 public enum ProductType {
     HOME_APPLIANCE,

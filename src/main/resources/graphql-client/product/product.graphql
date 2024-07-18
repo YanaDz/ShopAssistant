@@ -1,8 +1,0 @@
-type Product {
-    id: ID
-    name: String
-    type: ProductType
-    firm: String
-    productVersion: String
-
-}

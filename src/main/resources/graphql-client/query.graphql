@@ -1,5 +1,0 @@
-type Query {
-    puchases: [Puchase]
-    products: [Product]
-    product(productType: ProductType!): [Product]
-}

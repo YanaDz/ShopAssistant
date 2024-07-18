@@ -1,5 +1,0 @@
-type Seller {
-    id: ID
-    shortName: String
-
-}

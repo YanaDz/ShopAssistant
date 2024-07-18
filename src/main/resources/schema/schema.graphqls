@@ -1,0 +1,32 @@
+type Product {
+    id: ID!
+    name: String!
+    productType: ProductType!
+    firm: String!
+    productVersion: String!
+}
+
+enum ProductType {
+    HOME_APPLIANCE,
+    KITCHEN_APPLIANCE,
+    SMARTPHONES,
+    COMPUTERS
+}
+
+type Puchase {
+    id: ID
+    product: Product
+    seller: Seller
+
+}
+
+type Seller {
+    id: ID
+    shortName: String
+
+}
+
+
+type Query {
+    getAllProducts: [Product]
+}
