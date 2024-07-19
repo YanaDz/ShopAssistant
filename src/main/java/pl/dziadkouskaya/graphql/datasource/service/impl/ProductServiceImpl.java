@@ -20,7 +20,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getByProductType(ProductType type) {
-        return List.of();
+        log.info("Get products by type: {}", type);
+        return productRepository.findByProductType(type);
     }
 
     @Override

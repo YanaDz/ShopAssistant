@@ -2,10 +2,11 @@ package pl.dziadkouskaya.graphql.datafetcher;
 
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
+import com.netflix.graphql.dgs.InputArgument;
 import pl.dziadkouskaya.graphql.datasource.ProductDataSource;
+import pl.dziadkouskaya.graphql.datasource.entity.ProductType;
 import pl.dziadkouskaya.graphql.model.ProductModel;
 
-import java.io.IOException;
 import java.util.List;
 
 @DgsComponent
@@ -16,8 +17,14 @@ public class ProductFetcher {
         this.productDataSource = productDataSource;
     }
 
+
     @DgsQuery
     public List<ProductModel> getAllProducts() {
         return productDataSource.getProductModels();
+    }
+
+    @DgsQuery
+    public List<ProductModel> getProductsByType(@InputArgument ProductType productType) {
+        return productDataSource.getProductsByType(productType);
     }
 }
