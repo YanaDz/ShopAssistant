@@ -1,4 +1,4 @@
-package pl.dziadkouskaya.graphql.datasource.entity;
+package pl.dziadkouskaya.graphql.entity;
 
 
 import jakarta.persistence.*;

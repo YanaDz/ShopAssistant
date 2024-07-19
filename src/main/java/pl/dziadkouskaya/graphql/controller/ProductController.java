@@ -1,13 +1,4 @@
-package pl.dziadkouskaya.graphql.datasource.controller;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import pl.dziadkouskaya.graphql.datasource.entity.Product;
-import pl.dziadkouskaya.graphql.datasource.mapper.ProductMapper;
-import pl.dziadkouskaya.graphql.datasource.service.ProductService;
-
-import java.util.List;
+package pl.dziadkouskaya.graphql.controller;
 
 //@Slf4j
 //@Controller
