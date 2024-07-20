@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import pl.dziadkouskaya.graphql.entity.enums.ProductType;
 
 import java.util.UUID;
 
@@ -33,7 +34,6 @@ public class Product extends AuditableEntity {
     private String productVersion;
 
     @Column(name = "product_type")
-    @Enumerated(EnumType.STRING)
-    private ProductType productType;
+    private Integer productType;
 
 }

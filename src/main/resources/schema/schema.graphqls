@@ -1,4 +1,4 @@
 type Query {
     getAllProducts: [Product]
-    getProductsByType(productType: ProductType!): [Product]
+    getProductsByFields(productFilter: ProductFilter!): [Product]
 }

@@ -1,16 +1,9 @@
 type Product {
     id: ID!
     name: String!
-    productType: ProductType!
+    productType: Int!
     firm: String!
     productVersion: String!
-}
-
-enum ProductType {
-    HOME_APPLIANCE,
-    KITCHEN_APPLIANCE,
-    SMARTPHONES,
-    COMPUTERS
 }
 
 type Puchase {
@@ -24,4 +17,11 @@ type Seller {
     id: ID
     shortName: String
 
+}
+
+input ProductFilter {
+    name: String
+    productType: String
+    firm: String
+    productVersion: String
 }
