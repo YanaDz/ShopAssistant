@@ -9,6 +9,8 @@ import pl.dziadkouskaya.graphql.repository.sql.ProductRepository;
 import pl.dziadkouskaya.graphql.service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -34,5 +36,11 @@ public class ProductServiceImpl implements ProductService {
                 ProductType.codeByName(filter.getProductType()), filter.getProductVersion());
         log.info("Returned {} products. ", products.size());
         return products;
+    }
+
+    @Override
+    public Optional<Product> getProductById(UUID id) {
+        log.info("Get product by ID: {}.", id);
+        return productRepository.findById(id);
     }
 }

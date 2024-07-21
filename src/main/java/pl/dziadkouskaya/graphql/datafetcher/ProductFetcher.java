@@ -5,10 +5,11 @@ import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import pl.dziadkouskaya.graphql.codegen.types.ProductFilter;
 import pl.dziadkouskaya.graphql.entity.Product;
-import pl.dziadkouskaya.graphql.entity.enums.ProductType;
 import pl.dziadkouskaya.graphql.service.ProductService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @DgsComponent
 public class ProductFetcher {
@@ -23,13 +24,13 @@ public class ProductFetcher {
         return productService.getAll();
     }
 
-//    @DgsQuery
-//    public List<Product> getProductsByType(@InputArgument ProductType productType) {
-//        return productService.getByProductType(productType);
-//    }
-
     @DgsQuery
     public List<Product> getProductsByFields(@InputArgument ProductFilter productFilter) {
         return productService.getProductsByFields(productFilter);
+    }
+
+    @DgsQuery
+    public Optional<Product> getProductById(UUID id) {
+        return productService.getProductById(id);
     }
 }

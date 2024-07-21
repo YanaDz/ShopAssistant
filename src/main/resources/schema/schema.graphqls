@@ -1,4 +1,12 @@
 type Query {
     getAllProducts: [Product]
     getProductsByFields(productFilter: ProductFilter!): [Product]
+    getProductById(id: ID!): Product
+
+    getAllSellers: [Seller]
+    getSellerById(id: ID!): Seller
+
+    getAllPurchases: [Purchase]
+    getPurchaseById(id: ID!): [Purchase]
+    getPurchasesByFields(purchaseFilter: PurchaseFilter!): [Purchase]
 }

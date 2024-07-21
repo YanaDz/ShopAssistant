@@ -6,11 +6,12 @@ type Product {
     productVersion: String!
 }
 
-type Puchase {
+type Purchase {
     id: ID!
     product: Product!
     seller: Seller!
     price: Float
+    productUrl: String
 
 }
 
@@ -26,4 +27,10 @@ input ProductFilter {
     productType: String
     firm: String
     productVersion: String
+}
+
+input PurchaseFilter {
+    product: String
+    seller: String
+    firm: String
 }
