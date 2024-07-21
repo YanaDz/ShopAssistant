@@ -19,7 +19,6 @@ type Seller {
     id: ID!
     name: String!
     searchUrl: String!
-
 }
 
 input ProductFilter {
@@ -34,3 +33,31 @@ input PurchaseFilter {
     seller: String
     firm: String
 }
+
+input CreateProductInput {
+    name: String!
+    productType: Int!
+    firm: String!
+    productVersion: String!
+}
+
+input UpdateProductInput {
+    id: ID!
+    name: String
+    productType: Int
+    firm: String
+    productVersion: String
+}
+
+type CreateProductPayload {
+    "Similar to HTTP status code, represents the status of the mutation"
+    code: Int!
+    "Indicates whether the mutation was successful"
+    success: Boolean!
+    "Human-readable message for the UI"
+    message: String!
+    "The newly created product"
+    productId: ID!
+}
+
+

@@ -10,3 +10,9 @@ type Query {
     getPurchaseById(id: ID!): [Purchase]
     getPurchasesByFields(purchaseFilter: PurchaseFilter!): [Purchase]
 }
+
+type Mutation {
+    createProduct(input: CreateProductInput!): CreateProductPayload!
+    updateProduct(input: UpdateProductInput!): CreateProductPayload!
+    deleteProduct(id: ID!): Boolean!
+}

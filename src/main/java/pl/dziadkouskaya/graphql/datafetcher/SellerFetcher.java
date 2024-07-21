@@ -2,6 +2,7 @@ package pl.dziadkouskaya.graphql.datafetcher;
 
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
+import com.netflix.graphql.dgs.InputArgument;
 import pl.dziadkouskaya.graphql.entity.Seller;
 import pl.dziadkouskaya.graphql.service.SellerService;
 
