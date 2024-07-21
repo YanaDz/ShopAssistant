@@ -7,15 +7,17 @@ type Product {
 }
 
 type Puchase {
-    id: ID
-    product: Product
-    seller: Seller
+    id: ID!
+    product: Product!
+    seller: Seller!
+    price: Float
 
 }
 
 type Seller {
-    id: ID
-    shortName: String
+    id: ID!
+    name: String!
+    searchUrl: String!
 
 }
 
