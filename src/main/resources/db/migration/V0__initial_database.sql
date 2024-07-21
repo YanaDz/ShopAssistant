@@ -1,5 +1,5 @@
 -- Create table for Product entity with fields from AuditableEntity
-CREATE TABLE Product (
+CREATE TABLE IF NOT EXISTS  Product (
                          id UUID PRIMARY KEY,
                          name VARCHAR(255) NOT NULL,
                          firm VARCHAR(255) NOT NULL,

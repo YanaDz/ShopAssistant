@@ -35,4 +35,7 @@ public class Purchase extends AuditableEntity {
     @Nullable
     private Double price;
 
+    @Nullable
+    private String productUrl;
+
 }
