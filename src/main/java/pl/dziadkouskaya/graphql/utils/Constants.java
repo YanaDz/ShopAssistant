@@ -12,4 +12,9 @@ public class Constants {
     public static final String POSITIVE_PAYLOAD_MESSAGE = "Product is successfully created";
     public static final String NEGATIVE_PAYLOAD_MESSAGE = "Product is not created";
 
+
+    //exception messages
+    public static final String RESOURCE_NOT_FOUND = "Entity wasn't found.";
+    public static final String ERROR_SERVER_INTERNAL = "Internal server error.";
+
 }

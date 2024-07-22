@@ -7,13 +7,17 @@ import pl.dziadkouskaya.graphql.codegen.types.ProductFilter;
 import pl.dziadkouskaya.graphql.codegen.types.UpdateProductInput;
 import pl.dziadkouskaya.graphql.entity.Product;
 import pl.dziadkouskaya.graphql.entity.enums.ProductType;
+import pl.dziadkouskaya.graphql.exception.ResourceNotFoundException;
 import pl.dziadkouskaya.graphql.mapper.ProductMapper;
 import pl.dziadkouskaya.graphql.repository.sql.ProductRepository;
 import pl.dziadkouskaya.graphql.service.ProductService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static java.util.Objects.nonNull;
 
 @Slf4j
 @Service
@@ -61,10 +65,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product updateProduct(UpdateProductInput input) {
         log.info("Update product with id {}.", input.getId());
-        var initialProduct = productMapper.toEntity(input);
-        var product = productRepository.save(initialProduct);
-        log.info("Update entity with id {}.", product.getId());
-        return product;
+        if (productRepository.existsById(UUID.fromString(input.getId()))) {
+            var initialProduct = productRepository.findById(UUID.fromString(input.getId())).get();
+            var updatedProduct = updateProduct(input, initialProduct);
+            var product = productRepository.save(updatedProduct);
+            log.info("Update entity with id {}.", product.getId());
+            return product;
+        }
+        throw new ResourceNotFoundException();
     }
 
     @Override
@@ -78,5 +86,32 @@ public class ProductServiceImpl implements ProductService {
             log.info("Product with id {} doesn't exist.", id);
             return false;
         }
+    }
+
+    private Product updateProduct(UpdateProductInput input, Product initialProduct) {
+        if (nonNull(input.getName())) {
+            initialProduct.setName(input.getName());
+        }
+        if ((nonNull(input.getProductType()))) {
+            initialProduct.setProductType(input.getProductType());
+        }
+        if (nonNull(input.getFirm())) {
+            initialProduct.setFirm(input.getFirm());
+        }
+        if (nonNull(input.getProductVersion())) {
+            initialProduct.setProductVersion(input.getProductVersion());
+        }
+        initialProduct.setModified(getModified());
+        initialProduct.setVersion(updateVersion(initialProduct.getVersion()));
+        return initialProduct;
+
+    }
+
+    private LocalDateTime getModified() {
+        return LocalDateTime.now();
+    }
+
+    private long updateVersion(long version) {
+        return version + 1;
     }
 }

@@ -1,7 +1,6 @@
 package pl.dziadkouskaya.graphql.service.impl;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,6 +12,7 @@ import pl.dziadkouskaya.graphql.codegen.types.CreateProductInput;
 import pl.dziadkouskaya.graphql.codegen.types.ProductFilter;
 import pl.dziadkouskaya.graphql.codegen.types.UpdateProductInput;
 import pl.dziadkouskaya.graphql.entity.Product;
+import pl.dziadkouskaya.graphql.exception.ResourceNotFoundException;
 import pl.dziadkouskaya.graphql.mapper.ProductMapper;
 import pl.dziadkouskaya.graphql.repository.sql.ProductRepository;
 
@@ -22,7 +22,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -115,23 +116,33 @@ public class ProductServiceImplTest {
         );
     }
 
-    @ParameterizedTest
-    @MethodSource("provideUpdateProductInput")
-    void testUpdateProduct(UpdateProductInput input, Product product) {
-        when(productMapper.toEntity(input)).thenReturn(product);
-        when(productRepository.save(any(Product.class))).thenReturn(product);
-
-        Product result = productService.updateProduct(input);
-
-        assertEquals(product.getId(), result.getId());
-        verify(productMapper, times(1)).toEntity(input);
-        verify(productRepository, times(1)).save(product);
+    private static Stream<Arguments> provideUpdateProductInputs() {
+        return Stream.of(
+                Arguments.of(new UpdateProductInput(UUID.randomUUID().toString(), "Product1", 0, "Firm1", "1.0"), true),
+                Arguments.of(new UpdateProductInput(UUID.randomUUID().toString(), "Product3", 2, "Firm3", "3.0"), false)
+        );
     }
 
-    private static Stream<Arguments> provideUpdateProductInput() {
-        return Stream.of(
-                Arguments.of(new UpdateProductInput(), new Product())
-        );
+    @ParameterizedTest
+    @MethodSource("provideUpdateProductInputs")
+    void updateProduct(UpdateProductInput input, boolean existsById) {
+        UUID id = UUID.fromString(input.getId());
+        Product initialProduct = new Product();
+        initialProduct.setId(id);
+
+        when(productRepository.existsById(id)).thenReturn(existsById);
+        if (existsById) {
+            when(productRepository.findById(id)).thenReturn(Optional.of(initialProduct));
+            when(productRepository.save(any(Product.class))).thenReturn(initialProduct);
+        }
+
+        if (existsById) {
+            Product result = productService.updateProduct(input);
+            assertEquals(initialProduct.getId(), result.getId());
+            verify(productRepository, times(1)).save(any(Product.class));
+        } else {
+            assertThrows(ResourceNotFoundException.class, () -> productService.updateProduct(input));
+        }
     }
 
     @ParameterizedTest

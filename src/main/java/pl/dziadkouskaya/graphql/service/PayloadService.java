@@ -7,5 +7,5 @@ import java.util.UUID;
 
 
 public interface PayloadService {
-    CreateProductPayload createCreateProductPayload(UUID id, boolean isSuccess, Exception ... exception);
+    CreateProductPayload createCreateProductPayload(UUID id);
 }

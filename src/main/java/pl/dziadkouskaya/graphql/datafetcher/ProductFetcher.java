@@ -43,29 +43,19 @@ public class ProductFetcher {
 
     @DgsMutation
     public CreateProductPayload createProduct(@InputArgument CreateProductInput input) {
-        try {
-            var product = productService.createProduct(input);
-            return payloadService.createCreateProductPayload(product.getId(), true);
-        } catch (Exception exception) {
-            return payloadService.createCreateProductPayload(null, false, exception);
-        }
+        var product = productService.createProduct(input);
+        return payloadService.createCreateProductPayload(product.getId());
     }
 
     @DgsMutation
     public CreateProductPayload updateProduct(@InputArgument UpdateProductInput input) {
-        try {
-            var product = productService.updateProduct(input);
-            return payloadService.createCreateProductPayload(product.getId(), true);
-        } catch (Exception exception) {
-            return payloadService.createCreateProductPayload(null, false, exception);
-        }
+        var product = productService.updateProduct(input);
+        return payloadService.createCreateProductPayload(product.getId());
     }
 
     @DgsMutation
     public CreateProductPayload deleteProduct(@InputArgument UUID id) {
         var result = productService.deleteProduct(id);
-        return result
-                ? payloadService.createCreateProductPayload(id, true)
-                : payloadService.createCreateProductPayload(null, false);
+        return payloadService.createCreateProductPayload(id);
     }
 }
